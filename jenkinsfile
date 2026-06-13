@@ -34,6 +34,10 @@ pipeline {
                 sshagent([SSH_CREDENTIAL]) {
                     sh """
                         ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${SERVER_IP} '
+                            sudo apt update 
+                            sudo apt install nodejs -y
+                            sudo apt install npm -y
+                            sudo npm install -g pm2
                             cd ${REMOTE_PATH} &&
                             npm install &&
                             pm2 start app.js --name node-app || pm2 restart node-app
